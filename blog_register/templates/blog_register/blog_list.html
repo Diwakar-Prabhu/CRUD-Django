@@ -1,0 +1,41 @@
+{% extends "blog_register/base.html"%}
+
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Title</td>
+            <td>About</td>
+            <td>Author</td>
+            <td>Picture</td>
+            
+            <td>
+                <a href="{% url 'blog_insert' %}" style ="background-color:rgb(132, 0, 255)" class="btn btn-outline-success">
+                   Create
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for blog in blog_list %}
+            <tr>
+                <td>{{blog.title}}</td>
+                <td>{{blog.description}}</td>
+                <td>{{blog.auth_name}}</td>
+                <td>{{blog.img}}</td>
+            
+                <td>
+                    <a href="{% url 'blog_update' blog.id %}" class="btn text-secondary px-0">
+                        <button type="submit" class="btn btn-outline-success">update</button>
+                    </a>
+                    <form action="{% url 'blog_delete' blog.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" style ="background-color:rgb(255, 0, 0)"class="btn btn-outline-success">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content%}
